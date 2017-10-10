@@ -799,12 +799,6 @@ public class ISalaryServiceImpl extends IBaseServiceImpl implements
 				subCell3.setCellValue("总计");
 				subCell3.setCellStyle(cs2);
 				
-				//其他占两行一列
-				sheet.addMergedRegion(new CellRangeAddress(rowIndex - 2, rowIndex - 1, cellIndex, cellIndex));
-				cell = infoRow.createCell(cellIndex ++);
-				cell.setCellValue("其他");
-				cell.setCellStyle(cs2);
-				
 				sheet.addMergedRegion(new CellRangeAddress(rowIndex - 2, rowIndex - 1, cellIndex, cellIndex));
 				cell = infoRow.createCell(cellIndex ++);
 				cell.setCellValue("实发工资");
@@ -828,6 +822,24 @@ public class ISalaryServiceImpl extends IBaseServiceImpl implements
 				Cell subCell4 = infoRow2.createCell(cellIndex ++);
 				subCell4.setCellValue("住房补贴");
 				subCell4.setCellStyle(cs2);
+				
+				//其他占两行一列
+				sheet.addMergedRegion(new CellRangeAddress(rowIndex - 2, rowIndex - 1, cellIndex, cellIndex));
+				cell = infoRow.createCell(cellIndex ++);
+				cell.setCellValue("其他");
+				cell.setCellStyle(cs2);
+				
+				//其他占两行一列
+				sheet.addMergedRegion(new CellRangeAddress(rowIndex - 2, rowIndex - 1, cellIndex, cellIndex));
+				cell = infoRow.createCell(cellIndex ++);
+				cell.setCellValue("税前工资");
+				cell.setCellStyle(cs2);
+				
+				//其他占两行一列
+				sheet.addMergedRegion(new CellRangeAddress(rowIndex - 2, rowIndex - 1, cellIndex, cellIndex));
+				cell = infoRow.createCell(cellIndex ++);
+				cell.setCellValue("个税");
+				cell.setCellStyle(cs2);
 				
 				//公司投保占一行两列
 				sheet.addMergedRegion(new CellRangeAddress(rowIndex - 2, rowIndex - 2, cellIndex, cellIndex + 1));
@@ -960,10 +972,6 @@ public class ISalaryServiceImpl extends IBaseServiceImpl implements
 					cell.setCellValue(CodeUtil.parseString(map.getTotalInsurance()));
 					
 					cell = row.createCell(cellIndex ++);
-					//cell.setCellValue(CodeUtil.parseString(map.get("OTHER")));
-					cell.setCellValue(CodeUtil.parseString(map.getOther()));
-					
-					cell = row.createCell(cellIndex ++);
 					//cell.setCellValue(CodeUtil.parseString(map.get("ACTUAL_TOTAL_SALARY")));
 					cell.setCellValue(CodeUtil.parseString(map.getActualTotalSalary()));
 					
@@ -997,6 +1005,18 @@ public class ISalaryServiceImpl extends IBaseServiceImpl implements
 					
 					//housingSubsidyTotal = housingSubsidyTotal.add(CodeUtil.parseBigDecimal(map.get("HOUSING_SUBSIDY")));
 					housingSubsidyTotal = housingSubsidyTotal.add(map.getHousingSubsidy());
+
+					cell = row.createCell(cellIndex ++);
+					//cell.setCellValue(CodeUtil.parseString(map.get("OTHER")));
+					cell.setCellValue(CodeUtil.parseString(map.getOther()));
+					
+					cell = row.createCell(cellIndex ++);
+					//cell.setCellValue(CodeUtil.parseString(map.get("OTHER")));
+					cell.setCellValue(CodeUtil.parseString(map.getPretaxSalary()));
+					
+					cell = row.createCell(cellIndex ++);
+					//cell.setCellValue(CodeUtil.parseString(map.get("OTHER")));
+					cell.setCellValue(CodeUtil.parseString(map.getTax()));
 					
 					cell = row.createCell(cellIndex ++);
 					//cell.setCellValue(CodeUtil.parseString(map.get("COMPANY_SOCIAL_INSURANCE")));
@@ -1030,61 +1050,61 @@ public class ISalaryServiceImpl extends IBaseServiceImpl implements
 				cell.setCellValue(CodeUtil.parseString(supposedTotal));
 				cell.setCellStyle(cs2);
 				
-				cell = sumRow.createCell(22);
+				cell = sumRow.createCell(21);
 				cell.setCellValue(CodeUtil.parseString(actualTotal));
 				cell.setCellStyle(cs2);
 				
-				cell = sumRow.createCell(23);
+				cell = sumRow.createCell(22);
 				cell.setCellValue(CodeUtil.parseString(telChargeTotal));
 				cell.setCellStyle(cs2);
 				
-				cell = sumRow.createCell(24);
+				cell = sumRow.createCell(23);
 				cell.setCellValue(CodeUtil.parseString(mealSubsidyTotal));
 				cell.setCellStyle(cs2);
 				
-				cell = sumRow.createCell(25);
+				cell = sumRow.createCell(24);
 				cell.setCellValue(CodeUtil.parseString(travelAllowanceTotal));
 				cell.setCellStyle(cs2);
 				
-				cell = sumRow.createCell(26);
+				cell = sumRow.createCell(25);
 				cell.setCellValue(CodeUtil.parseString(housingSubsidyTotal));
 				cell.setCellStyle(cs2);
 				
-				cell = sumRow.createCell(27);
+				cell = sumRow.createCell(29);
 				cell.setCellValue(CodeUtil.parseString(companySocialInsuranceTotal));
 				cell.setCellStyle(cs2);
 				
-				cell = sumRow.createCell(28);
+				cell = sumRow.createCell(30);
 				cell.setCellValue(CodeUtil.parseString(companyHealthInsuranceTotal));
 				cell.setCellStyle(cs2);
 				
 				Row benefitSumRow = sheet.createRow(rowIndex ++);
-				cell = benefitSumRow.createCell(21);
+				cell = benefitSumRow.createCell(16);
 				cell.setCellValue("福利合计");
 				cell.setCellStyle(cs2);
 				
-				cell = benefitSumRow.createCell(22);
+				cell = benefitSumRow.createCell(17);
 				cell.setCellValue(CodeUtil.parseString(supposedTotal));
 				cell.setCellStyle(cs2);
 				
-				sheet.addMergedRegion(new CellRangeAddress(rowIndex - 1, rowIndex - 1, 23, 26));
-				cell = benefitSumRow.createCell(23);
+				sheet.addMergedRegion(new CellRangeAddress(rowIndex - 1, rowIndex - 1, 22, 25));
+				cell = benefitSumRow.createCell(22);
 				cell.setCellValue(CodeUtil.parseString(benefitTotal));
 				cell.setCellStyle(cs2);
 				
-				sheet.addMergedRegion(new CellRangeAddress(rowIndex - 1, rowIndex - 1, 27, 28));
-				cell = benefitSumRow.createCell(27);
+				sheet.addMergedRegion(new CellRangeAddress(rowIndex - 1, rowIndex - 1, 29, 30));
+				cell = benefitSumRow.createCell(29);
 				cell.setCellValue(CodeUtil.parseString(companyInsuranceTotal));
 				cell.setCellStyle(cs2);
 				
 				Row totalSalaryRow = sheet.createRow(rowIndex ++);
 				
-				cell = totalSalaryRow.createCell(21);
+				cell = totalSalaryRow.createCell(16);
 				cell.setCellValue("工资总计");
 				cell.setCellStyle(cs2);
 				
-				sheet.addMergedRegion(new CellRangeAddress(rowIndex - 1, rowIndex - 1, 22, 28));
-				cell = totalSalaryRow.createCell(22);
+				sheet.addMergedRegion(new CellRangeAddress(rowIndex - 1, rowIndex - 1, 17, 30));
+				cell = totalSalaryRow.createCell(17);
 				cell.setCellValue(CodeUtil.parseString(totalSalary));
 				cell.setCellStyle(cs2);
 			}

@@ -249,6 +249,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			var benefitTotal = 0;
 			var companyInsuranceTotal = 0;
 			var totalSalary = 0;
+			var commissionSum = 0;
+			var socialInsuranceSum = 0;	//个人社保合计
+			var healthInsuranceSum = 0;	//个人医保合计
+			var insuranceSum = 0;	//个人医社保总计
+			var taxSum = 0;
 			for(var i = 0; i < rowDatas.length; i ++) {
 				var rowData = rowDatas[i];
 				if(rowData.id.indexOf("_sum_header") >= 0 || rowData.id.indexOf("_sum_data") >= 0
@@ -263,7 +268,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				housingSubsidyTotal += parseFloat(rowData.housingSubsidy);
 				companySocialInsuranceTotal += parseFloat(rowData.companySocialInsurance);
 				companyHealthInsuranceTotal += parseFloat(rowData.companyHealthInsurance);
+				commissionSum += parseFloat(rowData.commission);
+				socialInsuranceSum += parseFloat(rowData.socialInsurance);
+				healthInsuranceSum += parseFloat(rowData.healthInsurance);
+				taxSum += parseFloat(rowData.taxSum);
 			}
+			
 			benefitTotal = telChargeTotal + mealSubsidyTotal + travelAllowanceTotal + housingSubsidyTotal;
 			companyInsuranceTotal = companySocialInsuranceTotal + companyHealthInsuranceTotal;
 			totalSalary = supposedTotal + benefitTotal + companyInsuranceTotal;
@@ -279,7 +289,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			benefitTotal = benefitTotal.toFixed(2);
 			companyInsuranceTotal = companyInsuranceTotal.toFixed(2);
 			totalSalary = totalSalary.toFixed(2);
-			
+			commissionSum = commissionSum.toFixed(2);
+			socialInsuranceSum = socialInsuranceSum.toFixed(2);
+			healthInsuranceSum = healthInsuranceSum.toFixed(2);
+			insuranceSum = socialInsuranceSum + healthInsuranceSum;
+			insuranceSum = insuranceSum.toFixed(2);
+			taxSum = taxSum.toFixed(2);
 			if(!sumHeaderId) {
 				var rowId = Math.random();
 				rowId=rowId+"_sum_header";
@@ -295,7 +310,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	           		achievementSalary: "",
 	           		achievementScore: "",
 	           		actualAchievementSalary: "",
-	           		commission: "",
+	           		commission: "抽成合计",
 	           		fullAttendanceAward: "",
 	           		overtimePay: "",
 	           		seniorityPay: "",
@@ -304,9 +319,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	           		lateDeduct: "",
 	           		punishDeduct: "",
 	           		supposedTotalSalary: "应发合计",
-	           		socialInsurance: "",
-	           		healthInsurance: "",
-	           		totalInsurance: "",
+	           		socialInsurance: "个人社保合计",
+	           		healthInsurance: "个人医保合计",
+	           		totalInsurance: "总计",
 	           		other: "",
 	           		actualTotalSalary: "实发合计",
 	           		telCharge: "话补",
@@ -316,7 +331,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	           		companySocialInsurance: "社保",
 	           		companyHealthInsurance: "医保",
 	           		info: "",
-	           		operationCell: ""
+	           		operationCell: "",
+	           		tax: "个税合计"
 	           	});
 			}
 			if(!sumDataId) {
@@ -332,7 +348,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					housingSubsidy: housingSubsidyTotal,
 					companySocialInsurance: companySocialInsuranceTotal,
 					companyHealthInsurance: companyHealthInsuranceTotal,
-					operationCell: ""
+					operationCell: "",
+					commission: commissionSum,
+					socialInsurance: socialInsuranceSum,
+					healthInsurance: healthInsuranceSum,
+					totalInsurance: insuranceSum,
+					tax: taxSum
 				});
 			} else {
 				$("#salaryContentDatagrid_view").setRowData(sumDataId, {
@@ -344,7 +365,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					housingSubsidy: housingSubsidyTotal,
 					companySocialInsurance: companySocialInsuranceTotal,
 					companyHealthInsurance: companyHealthInsuranceTotal,
-					operationCell: ""
+					operationCell: "",
+					commission: commssionSum,
+					socialInsurance: socialInsuranceSum,
+					healthInsurance: healthInsuranceSum,
+					totalInsurance: insuranceSum,
+					tax: taxSum
 				});
 			}
 			if(!benefitSumId) {
