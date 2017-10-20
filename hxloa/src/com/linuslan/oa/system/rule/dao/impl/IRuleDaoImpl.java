@@ -34,7 +34,7 @@ public class IRuleDaoImpl extends IBaseDaoImpl implements IRuleDao {
 		if (paramMap != null) {
 			getHQL(paramMap, hql, countHQL);
 		}
-
+		hql.append(" ORDER BY r.orderNo ASC, r.id DESC");
 		Query query = null;
 		Query countQuery = null;
 		Map<String, Query> queryMap = getQuery(paramMap, hql, countHQL, session, query,
