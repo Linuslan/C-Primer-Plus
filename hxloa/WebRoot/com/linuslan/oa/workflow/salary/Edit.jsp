@@ -779,7 +779,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				commissionSum += parseFloat(rowData.commission);
 				socialInsuranceSum += parseFloat(rowData.socialInsurance);
 				healthInsuranceSum += parseFloat(rowData.healthInsurance);
-				taxSum += parseFloat(rowData.taxSum);
+				taxSum += parseFloat(rowData.tax);
 			}
 			benefitTotal = telChargeTotal + mealSubsidyTotal + travelAllowanceTotal + housingSubsidyTotal;
 			companyInsuranceTotal = companySocialInsuranceTotal + companyHealthInsuranceTotal;
@@ -799,8 +799,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			commissionSum = commissionSum.toFixed(2);
 			socialInsuranceSum = socialInsuranceSum.toFixed(2);
 			healthInsuranceSum = healthInsuranceSum.toFixed(2);
-			insuranceSum = socialInsuranceSum + healthInsuranceSum;
-			insuranceSum = insuranceSum.toFixed(2);
+			insuranceSum = parseFloat(socialInsuranceSum) + parseFloat(healthInsuranceSum);
+			try {
+				insuranceSum = insuranceSum.toFixed(2);
+			} catch(e) {
+				console.log(e);
+			}
 			taxSum = taxSum.toFixed(2);
 			if(!sumHeaderId) {
 				var rowId = Math.random();
